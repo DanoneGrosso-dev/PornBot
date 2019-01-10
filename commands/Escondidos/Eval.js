@@ -28,9 +28,6 @@ function clean(text) {
   //const database = require("../../data/database.js")
   //var Users2 = database.Users2
   var Discord = require('discord.js')
-  const pixelUtil = require('pixel-util');  
-  var canvas = require('canvas-prebuilt')
-  var jimp = require('jimp')
   var moment = require('moment')
   const config = require("../../data/config.json")
   const ids = config.DonoId
