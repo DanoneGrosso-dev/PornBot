@@ -1,1 +1,1 @@
-worker node asuna.js
+worker node .
