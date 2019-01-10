@@ -58,7 +58,7 @@ client.on("message", message => {
     try {
         args = message.content.split(" ").slice(1);
         if (!comandos.some(a => a.aliases.map(b => b.toLowerCase()).includes(command))) return;
-        if (temposet.has(message.author.id)) return message.reply("Espere 5 segundos antes de usar um comando novamente!")
+        if (temposet.has(message.author.id)) return message.reply("Espere 2 segundos antes de usar um comando novamente!")
         let commandFile = comandos.find(a => a.aliases.map(b => b.toLowerCase()).includes(command));
         commandFile.run(client, message, args)
         //if (Math.floor(Math.random() * 300) > 297) msg
