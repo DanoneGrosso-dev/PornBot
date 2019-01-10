@@ -10,7 +10,7 @@ module.exports = {
         let embed = new Discord.RichEmbed()
             .setColor(`#602bff`)
             .setDescription(`**[Avatar de ${User} (Download)](${User.avatarURL})**`)
-            .setImage(User.avatar ? `https://cdn.discordapp.com/avatars/${User.id}/${User.avatar}.png?size=512` : User.displayAvatarURL)
+            .setImage(User.avatarURL ? `https://cdn.discordapp.com/avatars/${User.id}/${User.avatar}.png?size=512` : User.displayAvatarURL)
         message.reply({ embed })
     }
 }
