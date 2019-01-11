@@ -68,7 +68,7 @@ client.on("message", message => {
         //.setFooter("---------------------------------", "https://cdn.discordapp.com/emojis/492090395619098625.gif?v=1")
         message.channel.send({ embed })
     }
-    if (!message.guild) return message.reply("Comandos não funcionam aqui! caso precise de ajuda entre no meu servidor:\n  https://discord.gg/Qq2J2xW")
+    //if (!message.guild) return message.reply("Comandos não funcionam aqui! caso precise de ajuda entre no meu servidor:\n  https://discord.gg/Qq2J2xW")
     if (!message.content.startsWith(config.prefix) && !message.content.toLocaleLowerCase().startsWith(nameprefix)) return;
     let command = message.content.toLowerCase().split(" ")[0];
     command = command.slice(config.prefix.length)

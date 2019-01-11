@@ -27,6 +27,7 @@ module.exports = {
                 .addField("<:links:505518935886659616> Links:", "**[Support](" + config.Support + ")\n[Invite](https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&permissions=999999999&scope=bot)**", true)
             message.reply(embed)
         } else if (Argumentos == "server") {
+            if (!message.guild) return message.reply("Esse Comando não funciona aqui! caso precise de ajuda entre no meu servidor:\n  https://discord.gg/Qq2J2xW")
             let online = message.guild.members.filter(a => a.presence.status == "online").size;
             let ocupado = message.guild.members.filter(a => a.presence.status == "dnd").size;
             let ausente = message.guild.members.filter(a => a.presence.status == "idle").size;
