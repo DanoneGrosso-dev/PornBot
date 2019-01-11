@@ -8,10 +8,6 @@ module.exports = {
         exemplo: "info",
     },
     run: (client, message, args) => {
-        var archives = ""
-        for (let scr = 0; scr < config.DonoId.length; scr++) {
-            archives += client.users.get(config.DonoId[scr]) + "\n"
-        }
         var Argumentos = ""
         if (args[0]) {
             var Argumentos = args[0].toLowerCase()
@@ -27,7 +23,7 @@ module.exports = {
                 .addField("<:ping:412266860667731970> Ping:", "```js\n" + client.ping + " Ms```", true)
                 .addField("<:memoria:412267464605433877> Ram:", "```js\n" + Math.floor(process.memoryUsage().rss / 1024 / 1000) + ' Mb' + '```', true)
                 .addField("<:temporeal:412273857433436171> Fiquei online:", "```js\n" + moment(client.readyAt).format('LT L') + "```", true)
-                .addField(":computer: Creators", "**" + archives + "**", true)
+                .addField(":computer: Creators", "**" + client.Donos + "**", true)
                 .addField("<:links:505518935886659616> Links:", "**[Support](" + config.Support + ")\n[Invite](https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&permissions=999999999&scope=bot)**", true)
             message.reply(embed)
         } else if (Argumentos == "server") {

@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const request = require('snekfetch');
 const randomPuppy = require('random-puppy');
 module.exports = {
-    aliases: ["amateur","realgirls","rgirl","realgirl","rg","rgirls","gonewild"], // Coloque no diminutivo
+    aliases: ["amateur","realgirls","rgirl","realgirl","rg","rgirls"], // Coloque no diminutivo
     help: {
         desc: "RealGirls",
         exemplo: "amateur",

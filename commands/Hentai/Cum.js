@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const request = require('snekfetch');
 module.exports = {
-    aliases: ["hcum"], // Coloque no diminutivo
+    aliases: ["cum"], // Coloque no diminutivo
     help: {
         desc: "Hentai Cum (Hentai Porra)",
         exemplo: "hcum",

@@ -4,8 +4,8 @@ const randomPuppy = require('random-puppy');
 module.exports = {
     aliases: ["gay"], // Coloque no diminutivo
     help: {
-        desc: "lesbian",
-        exemplo: "lesbian",
+        desc: "gay",
+        exemplo: "gay",
     },
     run: (client, message, args) => {
         if (!message.channel.nsfw) {

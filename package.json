@@ -15,8 +15,10 @@
     "moment": "^2.20.1",
     "mongoose": "5.3.10",
     "random-puppy": "^1.1.0",
+    "redtube": "^2.0.3",
     "request": "^2.85.0",
     "snekfetch": "^4.0.4",
+    "source-map-support": "^0.5.9",
     "weather-js": "^2.0.0"
   }
 }
