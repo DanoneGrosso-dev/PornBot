@@ -60,7 +60,7 @@ client.on("message", message => {
             .setDescription("Olá, Eu me chamo " + client.user.username + ".\nAbaixo você pode ver algumas informações sobre mim ^-^")
             .setThumbnail(client.user.avatar ? `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=512` : client.user.displayAvatarURL)
             .setAuthor(client.user.username + " Info", client.user.avatarURL)
-            .addField(":alembic:️ Commands", `**${client.cmds.filter(a => !a.hide).length}** Comandos\n**4** Categories\nFor more info, ${config.prefix}help`, true)
+            .addField(":alembic:️ Commands", `**${client.cmds.filter(a => !a.hide).length}** Commands\n**4** Categories\nFor more info, ${config.prefix}help`, true)
             .addField(":sparkles: Discord", `**${client.guilds.size}** Guilds\n**${client.users.size}** Users\n**${client.channels.size}** Channels`, true)
             .addField(":information_source:️ Info", `Uptime **${moment(client.readyAt).format('LT L')}**\nRam **${process.memoryUsage().rss / 1024 / 1000}**\nPrefix [** ${config.prefix} **]`, true)
             .addField(":computer: Creators", "**" + client.Donos + "**", true)
