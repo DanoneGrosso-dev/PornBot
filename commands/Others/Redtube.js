@@ -8,7 +8,6 @@ module.exports = {
     },
     run: (client, message, args) => {
         if (!message.channel.nsfw) return message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
-        var maximo = 15
         let reason = args.slice(0).join(' ');
         if (!reason) {
             let embed = new Discord.RichEmbed()
@@ -18,6 +17,9 @@ module.exports = {
         var msg = ''
         request('https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&search=' + args.join('+').substring(0, 100), function (error, response, body) {
             var categories = JSON.parse(body).videos
+            var maximo = categories.length
+            if(maximo > 18) {maximo = 18}
+            console.log(categories)
             for (var i = 0; i < maximo; i++) {
                 msg += "[ " + (i + 1) + " ]" + categories[i].video.title + " = " + categories[i].video.duration + "\n"
             }
