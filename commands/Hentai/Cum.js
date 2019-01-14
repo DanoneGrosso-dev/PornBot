@@ -1,10 +1,10 @@
 const Discord = require("discord.js");
 const request = require('snekfetch');
 module.exports = {
-    aliases: ["cum"], // Coloque no diminutivo
+    aliases: ["cum","cumg"], // Coloque no diminutivo
     help: {
         desc: "Hentai Cum (Hentai Porra)",
-        exemplo: "hcum",
+        exemplo: "cum",
     },
     run: (client, message, args) => {
         if (!message.channel.nsfw) {
