@@ -1,27 +1,28 @@
 const Discord = require("discord.js");
 const request = require('request');
+
 module.exports = {
-    aliases: ["redtube", "rt"], // Coloque no diminutivo
+    aliases: ["pornhub", "ph"], // Coloque no diminutivo
     help: {
-        desc: "Procuro no RedTube",
-        exemplo: "redtube",
+        desc: "Procuro no PornHub",
+        exemplo: "PornHub",
     },
     run: (client, message, args) => {
         if (!message.channel.nsfw) return message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         let reason = args.slice(0).join(' ');
         if (!reason) {
             let embed = new Discord.RichEmbed()
-                .setDescription(":no_entry_sign: Missing Args\n" + client.prefix + "redtube <tag>");
-            return message.reply(embed);
+                .setDescription(":no_entry_sign: Missing Args\n" + client.prefix + "redtube <tag> or random");
+            return message.reply(embed);    
         }
         var msg = ''
-        request('https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&search=' + args.join('+').substring(0, 100), function (error, response, body) {
+        request('https://pt.pornhub.com/webmasters/search?&search=' + args.join('+').substring(0, 100), function (error, response, body) {
             var categories = JSON.parse(body).videos
             var maximo = categories.length
             if(maximo > 18) {maximo = 18}
-            console.log(categories)
+            //console.log(categories)
             for (var i = 0; i < maximo; i++) {
-                msg += "[ " + (i + 1) + " ]" + categories[i].video.title + " = " + categories[i].video.duration + "\n"
+                msg += "[ " + (i + 1) + " ]" + categories[i].title + " = " + categories[i].duration + "\n"
             }
             message.delete();
             const filter = m => m.author.id == message.author.id;
@@ -42,10 +43,10 @@ module.exports = {
                         if (open == true) {
                             let embed = new Discord.RichEmbed()
                                 .setColor(`#ec97ff`)
-                                .setAuthor("RedTube video search","https://i.imgur.com/fVgD3rm.jpg")
-                                .setDescription(`[${categories[Escolhido].video.title}](${categories[Escolhido].video.url})\nRedTube video search`)
-                                .addField(":mag_right: Video stats", `**Views:** ${categories[Escolhido].video.views} - **Rating:** ${categories[Escolhido].video.rating}\n**Ratings:** ${categories[Escolhido].video.ratings} - **Duration:** ${categories[Escolhido].video.duration}\n**Date published:** ${categories[Escolhido].video.publish_date}\n**Url:** ${categories[Escolhido].video.url}\n**Tags:** [ ${categories[Escolhido].video.tags.map(a => a.tag_name).join(' | ')} ]`)
-                                .setImage(categories[Escolhido].video.thumb)
+                                .setAuthor("PornHub video search","https://1000logos.net/wp-content/uploads/2017/12/Pornhub-symbol.jpg")
+                                .setDescription(`[${categories[Escolhido].title}](${categories[Escolhido].url})\nPornHub video search`)
+                                .addField(":mag_right: Video stats", `**Views:** ${categories[Escolhido].views} - **Rating:** ${categories[Escolhido].rating}\n**Ratings:** ${categories[Escolhido].ratings} - **Duration:** ${categories[Escolhido].duration}\n**Date published:** ${categories[Escolhido].publish_date}\n**Url:** ${categories[Escolhido].url}\n**Categories:** [ ${categories[Escolhido].categories.map(a => a.category).join(' | ')} ]\n**Tags:** [ ${categories[Escolhido].tags.map(a => a.tag_name).join(' | ')} ]`)
+                                .setImage(categories[Escolhido].thumb)
                                 .setFooter(`${message.author.username} - ${args.slice(0).join(' ')}`, message.author.avatarURL);
                             message.channel.send(embed)
                         } else {

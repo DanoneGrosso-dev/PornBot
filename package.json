@@ -14,6 +14,7 @@
     "google": "^2.1.0",
     "moment": "^2.20.1",
     "mongoose": "5.3.10",
+    "pornhub-api": "0.0.1",
     "pornsearch": "^2.4.3",
     "random-puppy": "^1.1.0",
     "request": "^2.85.0",
