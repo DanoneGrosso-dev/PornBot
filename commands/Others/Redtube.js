@@ -16,7 +16,7 @@ module.exports = {
             return message.reply(embed);
         }
         var msg = ''
-        request('https://api.redtube.com/?data=redtube.Videos.searchVideos' + (args.length >= 1 ? '&output=' + args.join('+').substring(0, 100) : ''), function (error, response, body) {
+        request('https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&search=' + args.join('+').substring(0, 100), function (error, response, body) {
             var categories = JSON.parse(body).videos
             for (var i = 0; i < maximo; i++) {
                 msg += "[ " + (i + 1) + " ]" + categories[i].video.title + " = " + categories[i].video.duration + "\n"
