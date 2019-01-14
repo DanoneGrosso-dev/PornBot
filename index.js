@@ -44,7 +44,7 @@ client.on("ready", async () => {
     client.cmds = comandos
     console.log('on')
     // Jogando do Botv
-    const falas = [`Ajudando ${client.guilds.size} Servidores!`, `${client.users.size} Pessoas Me Conhecem!`, `Ola Use ${config.prefix}help Para Ver Meus Comandos`, `Quer Me Convidar Para O Seu Servidor? Use ${config.prefix}convite!`, `use a!help ou a!ajuda`, `Estou em ${client.channels.size} canais!`, `Use ${config.prefix}info Para Ver Minhas Informaçoes!`]
+    const falas = [`${client.prefix}help - Ajudando ${client.guilds.size} Servidores!`, `${client.prefix}help - ${client.users.size} Pessoas Me Conhecem!`, `Ola Use ${client.prefix}help Para Ver Meus Comandos`, `Quer Me Convidar Para O Seu Servidor? Use ${client.prefix}convite!`, `use ${client.prefix}help ou ${client.prefix}ajuda`, `${client.prefix}help - Estou em ${client.channels.size} canais!`, `Use ${client.prefix}info Para Ver Minhas Informaçoes!`]
     setInterval(() => {
         var selecionada = falas[Math.floor(Math.random() * falas.length)]
         if (selecionada == null) selecionada = falas[Math.floor(Math.random() * falas.length)]
