@@ -1,20 +1,20 @@
 const Discord = require("discord.js");
-const request = require('snekfetch');
+const request = require('request');
 const randomPuppy = require('random-puppy');
 module.exports = {
-    aliases: ["dog"], // Coloque no diminutivo
+    aliases: ["dog","doge"], // Coloque no diminutivo
     help: {
         desc: "dog",
         exemplo: "dog",
     },
     run: (client, message, args) => {
-        randomPuppy("dog")
-            .then(url => {
-                let embed = new Discord.RichEmbed()
-                    .setTitle("Dog")
-                    .setImage(url)
-                    .setColor('RANDOM')
-                message.channel.send(embed)
-            })
+        request('https://dog.ceo/api/breeds/image/random', function (error, response, body) {
+            let image = JSON.parse(body)
+            let embed = new Discord.RichEmbed()
+                .setTitle("Dog")
+                .setImage(image.message)
+                .setColor('RANDOM')
+            message.channel.send(embed)
+        });
     }
 }
