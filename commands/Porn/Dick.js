@@ -13,7 +13,7 @@ module.exports = new (class cmd {
         } else {
             client.external.randomPuppy("dickpic").then(url => {
                 let embed = new client.external.Discord.RichEmbed()
-                    .setDescription("<:benis:539281418962862084>")
+                    .setDescription("<:benis:525358938045022231>")
                     .setImage(url)
                     .setColor('RANDOM')
                 message.channel.send(embed)
