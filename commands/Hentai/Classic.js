@@ -1,18 +1,19 @@
-const Discord = require("discord.js");
-const request = require('snekfetch');
-module.exports = {
-    aliases: ["hclassic","hc"], // Coloque no diminutivo
-    help: {
-        desc: "Yaoi <3",
-        exemplo: "yaoi",
-    },
-    run: (client, message, args) => {
+module.exports = new (class cmd {
+    constructor() {
+        this.name = "hclassic";
+        this.category = "hentai"
+        this.help = "Hentai Classic";
+        this.cooldown = 0;
+        this.cdMessage = "Wait 0 seconds to use this again";
+        this.aliases = ['hc']
+    }
+    run({ message, buildMessage, client, args}){
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
-            request.get(`https://nekos.life/api/v2/img/classic`)
+            client.external.superagent.get(`https://nekos.life/api/v2/img/classic`)
                 .end((err, response) => {
-                    const lewdembed = new Discord.RichEmbed()
+                    const lewdembed = new client.external.Discord.RichEmbed()
                     .setTitle("Classic Hentai")
                         .setImage(response.body.url)
                         .setColor(`RANDOM`)
@@ -20,4 +21,4 @@ module.exports = {
                 })
         }
     }
-}
+})

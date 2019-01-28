@@ -1,13 +1,13 @@
-const Discord = require("discord.js");
-const request = require('snekfetch');
-const randomPuppy = require('random-puppy');
-module.exports = {
-    aliases: ["amateur","realgirls","rgirl","realgirl","rg","rgirls"], // Coloque no diminutivo
-    help: {
-        desc: "RealGirls",
-        exemplo: "amateur",
-    },
-    run: (client, message, args) => {
+module.exports = new (class cmd {
+    constructor() {
+        this.name = "amateur";
+        this.category = "porn"
+        this.help = "Porn RealGirl";
+        this.cooldown = 0;
+        this.cdMessage = "Wait 0 seconds to use this again";
+        this.aliases = ["realgirls", "rgirl", "realgirl", "rg", "rgirls"]
+    }
+    run({ message, buildMessage, client, args }) {
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
@@ -17,8 +17,8 @@ module.exports = {
                 'gonewild'
             ]
             var sub = subreddits[Math.round(Math.random() * (subreddits.length - 1))];
-            randomPuppy(sub).then(url => {
-                let embed = new Discord.RichEmbed()
+            client.external.randomPuppy(sub).then(url => {
+                let embed = new client.external.Discord.RichEmbed()
                     .setTitle("RealGirls")
                     .setImage(url)
                     .setColor('RANDOM')
@@ -26,4 +26,4 @@ module.exports = {
             });
         }
     }
-}
+})

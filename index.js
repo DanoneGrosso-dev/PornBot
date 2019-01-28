@@ -1,97 +1,51 @@
-﻿const Discord = require('discord.js');
-const client = new Discord.Client({
-    disabledEvents: ['TYPING_START', 'VOICE_STATE_UPDATE', 'VOICE_SERVER_UPDATE', 'PRESENCE_UPDATE', 'MESSAGE_DELETE', 'CHANNEL_CREATE', 'CHANNEL_DELETE', 'CHANNEL_UPDATE'],
-    messageCacheMaxSize: 300,
-    messageCacheLifetime: 60 * 30,
-    messageSweepInterval: 60 * 60
-});
-//const attstatus = require("./update.js");
-var moment = require('moment/moment'); moment.locale('pt-BR');
-const config = require('./data/config.json');
-client.prefix = config.prefix;
-const nameprefix = "alo"
-const fs = require('fs');
-const temposet = new Set()
-const comandos = [];
-// Leitor
-(async () => {
-    let pastas = await fs.readdirSync("./commands")
-    for (let a of pastas) {
-        if (!a.includes(".")) {
-            let cmds = await fs.readdirSync("./commands/" + a)
-            for (b of cmds) {
-                let requiro = require("./commands/" + a + "/" + b)
-                requiro["categoria"] = a.toLowerCase();
-                requiro["categoria2"] = a;
-                if (!requiro.aliases || !requiro.run) console.log(b)
-                comandos.push(requiro)
-            }
+const command = require("command-discord");
+const client = command.Client({
+    token: "NTA5MDA0Mjc3MTA5MzU4NjEy.DsHftw.V846bATYQEWcaX9PtZahA4160YI", // Token Bot
+    color: "65535", //optional color for  embeds in decimal (65535 default)
+    path: "./commands", // path for commands folder, (./commands default)
+    prefix: "r", // prefix can be an array, (! default)
+    logErrors: true, // true default, if you dont want to console log errors in command false
+    // you can get errors using the commandError event
+    // prefix can be an array if you need multiple prefix, (! default)
+    commandExists: false,
+    commandExistsContent: {
+        embed: {
+            color: "16711680",
+            description: "We dont have this command yet!"
         }
-    }
-})()
-client.cmds = comandos;
+    },
+    prefixConfig: { // ~ The Bot only needs a one name to work (useUsername)
+        useUsername: true, // Example: mee6 help
+        useMention: true, // Example: @mee6 help
+    },
+    external: [ // Dependencies and Consts
+        { key: "Discord", value: require("discord.js") },
+        { key: "Owners", value: ["499282706505531392"] },
+        { key: "Support", value: "https://discord.gg/FPza8Zu" },
+        { key: "request", value: require('request') },
+        { key: "randomPuppy", value: require('random-puppy') },
+        { key: "superagent", value: require('snekfetch') }
+    ] // external variables to use instead of doing global variables
 
-// Mensagem Automática
-client.on('messageUpdate', (old, msg) => client.emit('message', msg));
-// Jogando do Bot
+}, {
+        //client options for discordjs (https://discord.js.org/#/docs/main/stable/typedef/ClientOptions)
+    });
+
+client.on("commandError", function (command, error) {
+    console.error(`Error ${error.toString()} in command ${command.name}`)
+    //this log is automatic if you dont disable the logErrors option
+})
+
+// Playing
 client.on("ready", async () => {
-    // Donos do Bot
-    var Donos = ""
-    for (let scr = 0; scr < config.DonoId.length; scr++) {
-        Donos += client.users.get(config.DonoId[scr]) + "\n"
-    }
-    client.Donos = Donos
-    client.cmds = comandos
     console.log('on')
-    // Jogando do Botv
-    const falas = [`${client.prefix}help - Ajudando ${client.guilds.size} Servidores!`, `${client.prefix}help - ${client.users.size} Pessoas Me Conhecem!`, `Ola Use ${client.prefix}help Para Ver Meus Comandos`, `Quer Me Convidar Para O Seu Servidor? Use ${client.prefix}convite!`, `use ${client.prefix}help ou ${client.prefix}ajuda`, `${client.prefix}help - Estou em ${client.channels.size} canais!`, `Use ${client.prefix}info Para Ver Minhas Informaçoes!`]
+    const phrases = [`${client.prefix}help - Helping ${client.users.size} Wankers`,`${client.prefix}help - I see XVideos for 24h`,`${client.prefix}help - i'm in ${client.guilds.size} Guilds`, `${client.prefix}help - ${client.users.size} People Know Me!`, `Use ${client.prefix}help to view my Commands`, `Want to Invite Me to Your Server? Use ${client.prefix} invitation! `]
     setInterval(() => {
-        var selecionada = falas[Math.floor(Math.random() * falas.length)]
-        if (selecionada == null) selecionada = falas[Math.floor(Math.random() * falas.length)]
-        client.user.setPresence({ game: { name: `${selecionada}`, type: 1, url: "https://www.twitch.tv/acnologlas" } })
+        var selected = phrases[Math.floor(Math.random() * phrases.length)]
+        if (selected == null) selected = phrases[Math.floor(Math.random() * phrases.length)]
+        client.user.setPresence({ game: { name: `${selected}` } })
     }, 5 * 60 * 1000)
-    client.user.setPresence({ game: { name: `${config.prefix}ajuda ou ${config.prefix}help` } })
-});
-client.on("message", message => {
-    if (message.author.bot) return;
-    if (message.content.startsWith(`<@${client.user.id}>`)) {
-        let embed = new Discord.RichEmbed()
-            .setColor(`#602bff`)
-            .setDescription("Olá, Eu me chamo " + client.user.username + ".\nAbaixo você pode ver algumas informações sobre mim ^-^")
-            .setThumbnail(client.user.avatar ? `https://cdn.discordapp.com/avatars/${client.user.id}/${client.user.avatar}.png?size=512` : client.user.displayAvatarURL)
-            .setAuthor(client.user.username + " Info", client.user.avatarURL)
-            .addField(":alembic:️ Commands", `**${client.cmds.filter(a => !a.hide).length}** Commands\n**4** Categories\nFor more info, ${config.prefix}help`, true)
-            .addField(":sparkles: Discord", `**${client.guilds.size}** Guilds\n**${client.users.size}** Users\n**${client.channels.size}** Channels`, true)
-            .addField(":information_source:️ Info", `Uptime **${moment(client.readyAt).format('LT L')}**\nRam **${process.memoryUsage().rss / 1024 / 1000}**\nPrefix [** ${config.prefix} **]`, true)
-            .addField(":computer: Creators", "**" + client.Donos + "**", true)
-            .addField(":link: Links", "**- [Support](" + config.Support + ") - | - [Invite](https://discordapp.com/oauth2/authorize?client_id=" + client.user.id + "&permissions=0&scope=bot) -**", true)
-        //.setFooter("---------------------------------", "https://cdn.discordapp.com/emojis/492090395619098625.gif?v=1")
-        message.channel.send({ embed })
-    }
-    //if (!message.guild) return message.reply("Comandos não funcionam aqui! caso precise de ajuda entre no meu servidor:\n  https://discord.gg/Qq2J2xW")
-    if (!message.content.startsWith(config.prefix) && !message.content.toLocaleLowerCase().startsWith(nameprefix)) return;
-    let command = message.content.toLowerCase().split(" ")[0];
-    command = command.slice(config.prefix.length)
-    if (message.content.split(' ')[0].toLowerCase() == nameprefix) {
-        command = message.content.split(' ')[1] ? message.content.split(' ')[1].toLowerCase() : ""
-    }
-    try {
-        args = message.content.split(" ").slice(1);
-        if (!comandos.some(a => a.aliases.map(b => b.toLowerCase()).includes(command))) return;
-        //if (temposet.has(message.author.id)) return message.reply("Espere 5 segundos antes de usar um comando novamente!")
-        let commandFile = comandos.find(a => a.aliases.map(b => b.toLowerCase()).includes(command));
-        commandFile.run(client, message, args)
-        //if (Math.floor(Math.random() * 300) > 297) msg
-        /*temposet.add(message.author.id)
-        setTimeout(() => {
-            temposet.delete(message.author.id)
-        }, 5000);*/
-    }
-    catch (err) {
-        if (err == 'MISSING_PERMISSIONS') return;
-        console.error(err + ' No comando: ' + command);
-    }
+    client.user.setPresence({ game: { name: phrases[0] } })
 });
 
-// Iniciação do Bot
-client.login(config.token)
+client.start(); // you can pass token here, if you dont want to pass options

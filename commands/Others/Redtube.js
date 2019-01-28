@@ -1,25 +1,25 @@
-const Discord = require("discord.js");
-const request = require('request');
-module.exports = {
-    aliases: ["redtube", "rt"], // Coloque no diminutivo
-    help: {
-        desc: "Procuro no RedTube",
-        exemplo: "redtube",
-    },
-    run: (client, message, args) => {
+module.exports = new (class cmd {
+    constructor() {
+        this.name = "redtube";
+        this.category = "others";
+        this.help = "Redtube Search";
+        this.cooldown = 0;
+        this.cdMessage = "Wait 0 seconds to use this again";
+        this.aliases = ["sredtube","searchredtube","sr"]
+    }
+    run({ message, buildMessage, client, args}){
         if (!message.channel.nsfw) return message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         let reason = args.slice(0).join(' ');
         if (!reason) {
-            let embed = new Discord.RichEmbed()
+            let embed = new client.external.Discord.RichEmbed()
                 .setDescription(":no_entry_sign: Missing Args\n" + client.prefix + "redtube <tag>");
             return message.reply(embed);
         }
         var msg = ''
-        request('https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&search=' + args.join('+').substring(0, 100), function (error, response, body) {
+        client.external.request('https://api.redtube.com/?data=redtube.Videos.searchVideos&output=json&search=' + args.join('+').substring(0, 100), function (error, response, body) {
             var categories = JSON.parse(body).videos
             var maximo = categories.length
             if(maximo > 18) {maximo = 18}
-            console.log(categories)
             for (var i = 0; i < maximo; i++) {
                 msg += "[ " + (i + 1) + " ]" + categories[i].video.title + " = " + categories[i].video.duration + "\n"
             }
@@ -40,7 +40,7 @@ module.exports = {
                             open = false
                         };
                         if (open == true) {
-                            let embed = new Discord.RichEmbed()
+                            let embed = new client.external.Discord.RichEmbed()
                                 .setColor(`#ec97ff`)
                                 .setAuthor("RedTube video search","https://i.imgur.com/fVgD3rm.jpg")
                                 .setDescription(`[${categories[Escolhido].video.title}](${categories[Escolhido].video.url})\nRedTube video search`)
@@ -56,4 +56,4 @@ module.exports = {
             })
         });
     }
-}
+})

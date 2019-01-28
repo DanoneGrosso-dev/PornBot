@@ -1,17 +1,18 @@
-const Discord = require("discord.js");
-const request = require('snekfetch');
-module.exports = {
-    aliases: ["eron"], // Coloque no diminutivo
-    help: {
-        desc: "Eron <3",
-        exemplo: "eron",
-    },
-    run: (client, message, args) => {
+module.exports = new (class cmd {
+    constructor() {
+        this.name = "eron";
+        this.category = "hentai"
+        this.help = "Hentai Eron";
+        this.cooldown = 0;
+        this.cdMessage = "Wait 0 seconds to use this again";
+        this.aliases = []
+    }
+    run({ message, buildMessage, client, args}){
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
-            request.get('https://nekos.life/api/v2/img/eron').end((err, response) => {
-                    const lewdembed = new Discord.RichEmbed()
+            client.external.superagent.get('https://nekos.life/api/v2/img/eron').end((err, response) => {
+                    const lewdembed = new client.external.Discord.RichEmbed()
                     .setTitle("Eron Hentai")
                         .setImage(response.body.url)
                         .setColor(`RANDOM`)
@@ -19,4 +20,4 @@ module.exports = {
                 })
         }
     }
-}
+})

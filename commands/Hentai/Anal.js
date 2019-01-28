@@ -1,18 +1,18 @@
-const Discord = require("discord.js");
-const request = require('snekfetch');
-const randomPuppy = require('random-puppy');
-module.exports = {
-    aliases: ["hanal"], // Coloque no diminutivo
-    help: {
-        desc: "Anal <3",
-        exemplo: "hanal",
-    },
-    run: (client, message, args) => {
+module.exports = new (class cmd {
+    constructor() {
+        this.name = "hanal";
+        this.category = "hentai"
+        this.help = "Hentai Anal";
+        this.cooldown = 0;
+        this.cdMessage = "Wait 0 seconds to use this again";
+        this.aliases = []
+    }
+    run({ message, buildMessage, client, args}){
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
-            request.get('https://nekos.life/api/v2/img/anal').end((err, response) => {
-                    const lewdembed = new Discord.RichEmbed()
+            client.external.superagent.get('https://nekos.life/api/v2/img/anal').end((err, response) => {
+                    const lewdembed = new client.external.Discord.RichEmbed()
                     .setTitle("Anal Hentai")
                         .setImage(response.body.url)
                         .setColor(`RANDOM`)
@@ -20,4 +20,4 @@ module.exports = {
                 })
         }
     }
-}
+})

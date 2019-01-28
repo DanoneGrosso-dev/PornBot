@@ -1,22 +1,22 @@
-const Discord = require("discord.js");
-const request = require('request');
-
-module.exports = {
-    aliases: ["pornhub", "ph"], // Coloque no diminutivo
-    help: {
-        desc: "Procuro no PornHub",
-        exemplo: "PornHub",
-    },
-    run: (client, message, args) => {
+module.exports = new (class cmd {
+    constructor() {
+        this.name = "pornhub";
+        this.category = "others";
+        this.help = "Porn Search in PornHub";
+        this.cooldown = 0;
+        this.cdMessage = "Wait 0 seconds to use this again";
+        this.aliases = ["ph","pornh"]
+    }
+    run({ message, buildMessage, client, args}){
         if (!message.channel.nsfw) return message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         let reason = args.slice(0).join(' ');
         if (!reason) {
-            let embed = new Discord.RichEmbed()
+            let embed = new client.external.Discord.RichEmbed()
                 .setDescription(":no_entry_sign: Missing Args\n" + client.prefix + "redtube <tag> or random");
             return message.reply(embed);    
         }
         var msg = ''
-        request('https://pt.pornhub.com/webmasters/search?&search=' + args.join('+').substring(0, 100), function (error, response, body) {
+        client.external.request('https://pt.pornhub.com/webmasters/search?&search=' + args.join('+').substring(0, 100), function (error, response, body) {
             var categories = JSON.parse(body).videos
             var maximo = categories.length
             if(maximo > 18) {maximo = 18}
@@ -41,7 +41,7 @@ module.exports = {
                             open = false
                         };
                         if (open == true) {
-                            let embed = new Discord.RichEmbed()
+                            let embed = new client.external.Discord.RichEmbed()
                                 .setColor(`#ec97ff`)
                                 .setAuthor("PornHub video search","https://1000logos.net/wp-content/uploads/2017/12/Pornhub-symbol.jpg")
                                 .setDescription(`[${categories[Escolhido].title}](${categories[Escolhido].url})\nPornHub video search`)
@@ -57,4 +57,4 @@ module.exports = {
             })
         });
     }
-}
+})
