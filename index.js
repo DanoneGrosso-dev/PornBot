@@ -1,6 +1,6 @@
 const command = require("command-discord");
 const client = command.Client({
-    token: "Your Token", // Token Bot
+    token: "NTA5MDA0Mjc3MTA5MzU4NjEy.DsHftw.V846bATYQEWcaX9PtZahA4160YI", // Token Bot
     color: "65535", //optional color for  embeds in decimal (65535 default)
     path: "./commands", // path for commands folder, (./commands default)
     prefix: "r", // prefix can be an array, (! default)
@@ -20,8 +20,8 @@ const client = command.Client({
     },
     external: [ // Dependencies and Consts
         { key: "Discord", value: require("discord.js") },
-        { key: "Owners", value: ["Your Id"] },
-        { key: "Support", value: "Your Server" },
+        { key: "Owners", value: ["499282706505531392"] },
+        { key: "Support", value: "https://discord.gg/FPza8Zu" },
         { key: "request", value: require('request') },
         { key: "randomPuppy", value: require('random-puppy') },
         { key: "superagent", value: require('snekfetch') }
