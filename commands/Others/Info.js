@@ -21,7 +21,7 @@ module.exports = new (class cmd {
                 .addField("<:server:412263453550575627> Servers:", "```js\n" + client.guilds.size + "```", true)
                 .addField("<:pessoas:412266233845645312> Users:", "```js\n" + client.users.size + "```", true)
                 .addField("<:canal:412265582541406208> Channels:", "```js\n" + client.channels.size + "```", true)
-                .addField("<:ping:412266860667731970> Ping:", "```js\n" + client.ping + " Ms```", true)
+                .addField("<:ping:412266860667731970> Ping:", "```js\n" + Math.floor(client.ping) + " Ms```", true)
                 .addField("<:memoria:412267464605433877> Ram:", "```js\n" + Math.floor(process.memoryUsage().rss / 1024 / 1000) + ' Mb' + '```', true)
                 .addField("<:temporeal:412273857433436171> I stayed online:", "```js\n" + moment(client.readyAt).format('LT L') + "```", true)
                 .addField(":computer: Creators", client.external.Owners.map(a => "<@"+client.users.get(a).id+">"), true)
