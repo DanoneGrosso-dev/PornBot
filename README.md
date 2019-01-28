@@ -3,6 +3,8 @@ This is a porn bot (contains hentai and porn), created using Node.js
 
 All commands in help command
 
+![help](https://user-images.githubusercontent.com/30308156/51846720-47ea7d00-2301-11e9-9591-7c0d7fd917ed.png)
+
 ## Dependencies Important
 
 * [command-discord](https://www.npmjs.com/package/command-discord) - A framework to easily do commands using discord.js
