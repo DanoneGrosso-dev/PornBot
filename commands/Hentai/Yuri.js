@@ -11,7 +11,7 @@ module.exports = new (class cmd {
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
-            client.external.randomPuppy("yuri").then(url => {
+            client.external.randomPuppy("Yuri").then(url => {
                 let embed = new client.external.Discord.RichEmbed()
                     .setTitle("Yuri")
                     .setImage(url)

@@ -11,7 +11,15 @@ module.exports = new (class cmd {
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
-            client.external.randomPuppy("dickpic").then(url => {
+            var subreddits = [
+                'dick',
+                'Dick',
+                'dickpic',
+                'Dickpic'
+            ]
+            var sub = subreddits[Math.round(Math.random() * (subreddits.length - 1))];
+
+            client.external.randomPuppy(sub).then(url => {
                 let embed = new client.external.Discord.RichEmbed()
                     .setDescription("<:benis:525358938045022231>")
                     .setImage(url)

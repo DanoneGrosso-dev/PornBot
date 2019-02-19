@@ -1,17 +1,17 @@
 module.exports = new (class cmd {
     constructor() {
         this.name = "dog";
-        this.category = "others";
-        this.help = "Cat Image";
+        this.category = "animals";
+        this.help = "Dog Image";
         this.cooldown = 0;
         this.cdMessage = "Wait 0 seconds to use this again";
-        this.aliases = ["doge"]
+        this.aliases = ["doge","cachorro"]
     }
-    run({ message, buildMessage, client, args}){
+    run({ message, buildMessage, client, args }) {
         client.external.request('https://dog.ceo/api/breeds/image/random', function (error, response, body) {
             let image = JSON.parse(body)
             let embed = new client.external.Discord.RichEmbed()
-                .setTitle("Dog")
+                .setTitle(":dog: Dog")
                 .setImage(image.message)
                 .setColor('RANDOM')
             message.channel.send(embed)

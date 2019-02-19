@@ -11,7 +11,15 @@ module.exports = new (class cmd {
         if (!message.channel.nsfw) {
             message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.")
         } else {
-            client.external.randomPuppy("yaoi").then(url => {
+            client.external.request('http://barapi.geopjr.xyz/json.php', function (error, response, body) {
+                var api = JSON.parse(body)
+                let embed = new client.external.Discord.RichEmbed()
+                    .setTitle("Yaoi")
+                    .setImage(api.link)
+                    .setColor('RANDOM')
+                message.channel.send(embed)
+            })
+            client.external.randomPuppy("Yaoi").then(url => {
                 let embed = new client.external.Discord.RichEmbed()
                     .setTitle("Yaoi")
                     .setImage(url)
