@@ -1,11 +1,11 @@
 module.exports = new (class cmd {
     constructor() {
-        this.name = "searchhentai";
-        this.category = "others"
+        this.name = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        this.category = ";-;"
         this.help = "Hentai Femdom";
         this.cooldown = 0;
         this.cdMessage = "Wait 0 seconds to use this again";
-        this.aliases = ["shentai"]
+        this.aliases = []
     }
     run({ message, buildMessage, client, args}){
         if (message.channel.nsfw == false) return message.channel.send(":underage: NSFW Command. Please switch to NSFW channel in order to use this command.");
